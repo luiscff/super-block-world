@@ -16,7 +16,7 @@ import Data.Vector.Primitive (elemIndices)
 validaPotencialMapa :: [(Peca, Coordenadas)] -> Bool
 validaPotencialMapa [] = False
 validaPotencialMapa ((p,c):t)
-    | contador (Porta,(0,0)) ((p,c):t) == 1 = True
+    | contador (Porta,(0,0)) ((p,c):t) == 1 = True 
     | otherwise = False
 
 contador :: (Peca, Coordenadas) -> [(Peca, Coordenadas)] -> Int
