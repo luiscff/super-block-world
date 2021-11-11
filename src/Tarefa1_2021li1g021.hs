@@ -10,8 +10,6 @@ Módulo para a realização da Tarefa 1 do projeto de LI1 em 2021/22.
 module Tarefa1_2021li1g021 where
 
 import LI12122
-import Data.Vector.Primitive (elemIndices)
-
 
 validaPotencialMapa :: [(Peca, Coordenadas)] -> Bool
 validaPotencialMapa [] = False
@@ -24,3 +22,4 @@ contador _ [] = 0
 contador (a,_) (x:xs)
     | a == fst x = 1 + contador (a,(0,0)) xs 
     | otherwise = contador (a,(0,0)) xs 
+
