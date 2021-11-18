@@ -1,6 +1,6 @@
 module FuncoesUteis where
 import LI12122
-
+-- Falta colocar o cabeçalho e as legendas
 maiorCoordenada :: [(Peca,Coordenadas)] -> Coordenadas
 maiorCoordenada l = maiorCoordenadaAUX l (0,0) --esta função dá a maior coordenada de uma lista
 
