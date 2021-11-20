@@ -46,4 +46,15 @@ coordenadaUltimoTuplo((p,c):t)  --dá a última coordenada do último tuplo
     |otherwise = coordenadaUltimoTuplo t
 
 desconstroiMapa :: Mapa -> [(Peca, Coordenadas)]
-desconstroiMapa mapa = undefined
+desconstroiMapa mapa = desconstroiMapaAUX mapa (0,0) 
+
+desconstroiMapaAUX :: Mapa -> Coordenadas -> [(Peca, Coordenadas)]
+desconstroiMapaAUX ([a]:t') (x,y)
+    |a == Vazio = desconstroiMapaAUX t' (0,y+1)
+    |otherwise = [(a,(x,y))] ++ desconstroiMapaAUX t' (0,y+1)
+desconstroiMapaAUX [] _ = []
+desconstroiMapaAUX ((h:t):t') (x,y)  -- [] : [[Vaz],[Porta],[Bloco]]
+    |h == Vazio = desconstroiMapaAUX (t:t') (x+1, y)
+    |h == Porta = [(Porta,(x,y))] ++ desconstroiMapaAUX (t:t') (x+1, y)
+    |h == Bloco = [(Bloco,(x,y))] ++ desconstroiMapaAUX (t:t') (x+1, y)
+    |h == Caixa = [(Caixa,(x,y))] ++ desconstroiMapaAUX (t:t') (x+1, y)
