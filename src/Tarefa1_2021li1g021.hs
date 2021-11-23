@@ -58,7 +58,7 @@ checkporta ((p, c) : t)
 -- == Código
 -- @
 -- norepete :: [(Peca, Coordenadas)] -> Bool
--- norepete [] = True -- Ver quando tenho 2 objetos com a mesma coordenada deve dar True
+-- norepete [] = True
 -- norepete ((p, c) : t) = (thereisnt c t && norepete t) && emptyspace ((p, c) : t)
 --  where
 --    thereisnt :: Coordenadas -> [(Peca, Coordenadas)] -> Bool
