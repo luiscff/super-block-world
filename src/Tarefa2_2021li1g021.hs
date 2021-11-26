@@ -11,7 +11,7 @@ import FuncoesUteis
 import LI12122
 
 constroiMapa :: [(Peca, Coordenadas)] -> Mapa
-constroiMapa [] = [[]]
+constroiMapa [] = []
 constroiMapa l = constroiMapaAUX (ordenaXeY l) (criarMapaVazio (maiorCoordenada l)) 0 0 [] -- pega numa lista ordenada e mete os seus elementos nos sítios certos de um mapa vazio
 constroiMapaAUX :: [(Peca,Coordenadas)] -> Mapa -> Int -> Int -> [Peca] -> Mapa
 constroiMapaAUX [(p,(x,y))] l n nx ac --caso de paragem (quando a lista só tem 1 elemento)
