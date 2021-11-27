@@ -11,10 +11,19 @@ module Tarefa1_2021li1g021 where
 import FuncoesUteis
 import LI12122
 
-{- Tarefa 1: Verificar Mapa através de um conjuntos de funções interligadas -}
-
-validaPotencialMapa :: [(Peca, Coordenadas)] -> Bool
-validaPotencialMapa = checkporta
+-- | Tarefa 1: Verificar Mapa através de um conjuntos de funções interligadas
+--
+-- == Código
+-- @
+-- validaPotencialMapa :: [(Peca, Coordenadas)] -> Bool
+-- validaPotencialMapa l = checkporta l && norepete l && emptyspace l && checkcaixas l
+-- @
+validaPotencialMapa ::
+  -- | Recebe a lista a avaliar
+  [(Peca, Coordenadas)] ->
+  -- | Se a lista for válida o mapa é válido - Retorna True
+  Bool
+validaPotencialMapa l = checkporta l && norepete l && emptyspace l && checkcaixas l
 
 -- | Função: Verifica a existência de apenas uma Porta
 --
@@ -38,7 +47,7 @@ checkporta ::
   Bool
 checkporta [] = False
 checkporta ((p, c) : t)
-  | contador (Porta, (0, 0)) ((p, c) : t) == 1 = norepete ((p, c) : t)
+  | contador (Porta, (0, 0)) ((p, c) : t) == 1 = True
   | otherwise = False
   where
     contador ::
@@ -71,7 +80,9 @@ norepete ::
   -- | Caso existam elementos repetidos retorna False
   Bool
 norepete [] = True
-norepete ((p, c) : t) = (thereisnt c t && norepete t) && emptyspace ((p, c) : t)
+norepete ((p, c) : t)
+  | thereisnt c t && norepete t = True
+  | otherwise = False
   where
     thereisnt ::
       -- | Recebe uma posição
@@ -102,10 +113,11 @@ emptyspace ::
   -- | Se existir algum espaço vazio retorna True
   Bool
 emptyspace [] = False
-emptyspace ((p, c) : t)
+emptyspace l
   | p == Vazio || emptyspace t || tamanho (maiorCoordenada ((p, c) : t)) > length ((p, c) : t) = True
   | otherwise = False
   where
+    ((p, c) : t) = l
     tamanho ::
       -- | Rece o maior x e o maior y
       (Int, Int) ->
@@ -113,50 +125,80 @@ emptyspace ((p, c) : t)
       Int
     tamanho (x, y) = (x + 1) * (y + 1)
 
-caixas :: [(Peca, Coordenadas)] -> [(Peca, Coordenadas)] -- Dá uma lista com apenas as Caixas
-caixas [] = []
-caixas ((p, c) : t)
-  | p == Caixa = (p, c) : caixas t
-  | otherwise = caixas t
-
-removecaixaseporta :: [(Peca, Coordenadas)] -> [(Peca, Coordenadas)] -- Dá uma lista sem as caixas e sem a porta
-removecaixaseporta [] = []
-removecaixaseporta ((p, c) : t)
-  | p == Caixa = removecaixaseporta t
-  | p == Porta = removecaixaseporta t
-  | otherwise = (p, c) : removecaixaseporta t
-
-checkcaixas :: [(Peca, Coordenadas)] -> Bool
-checkcaixas [] = True
+-- | Função: Valida as Caixas - Verifica se cada caixa está pousada num bloco ou numa outra caixa
+--
+-- == Código
+-- @
+-- checkcaixas :: [(Peca,Coordenadas)] -> Bool
+-- checkcaixas l
+--  | (c,d+1) `elem` coordsblocosecaixas l = checkcaixasaux xs (coordsblocosecaixas l)
+--  | otherwise = False
+--  where ((c,d):xs) = coordscaixas l
+--        checkcaixasaux :: [Coordenadas] -> [Coordenadas] -> Bool
+--        checkcaixasaux [] l = True
+--        checkcaixasaux l [] = False
+--        checkcaixasaux ((c,d):xs) b
+--          | (c,d+1) `elem` b = checkcaixasaux xs b
+--          | otherwise = False
+-- @
+checkcaixas ::
+  -- | Recebe uma lista
+  [(Peca, Coordenadas)] ->
+  -- | Se todas as caixas foram válidas retorna True
+  Bool
 checkcaixas l
-  | x == x1 && y == y1 + 1 && checkcaixasaux t t1 = True
-  | x == x1 && y /= y1 + 1 = checkcaixasaux [(p, (x, y))] t1
-  | x /= x1 = checkcaixasaux [(p, (x, y))] t1
+  | (c, d + 1) `elem` coordsblocosecaixas l = checkcaixasaux xs (coordsblocosecaixas l)
   | otherwise = False
   where
-    (p, (x, y)) : t = caixas l
-    (p1, (x1, y1)) : t1 = removecaixaseporta l
+    ((c, d) : xs) = coordscaixas l
+    checkcaixasaux ::
+      -- | Recebe as coordenadas das caixas
+      [Coordenadas] ->
+      -- | Recebe as coordendas dos blocos e das caixas
+      [Coordenadas] ->
+      -- | Se todas as caixas forma válidas retorna True
+      Bool
+    checkcaixasaux [] l = True
+    checkcaixasaux l [] = False
+    checkcaixasaux ((c, d) : xs) b
+      | (c, d + 1) `elem` b = checkcaixasaux xs b
+      | otherwise = False
 
-checkcaixasaux :: [(Peca, Coordenadas)] -> [(Peca, Coordenadas)] -> Bool
-checkcaixasaux _ [] = False
-checkcaixasaux a b
-  | x == x1 && y == y1 + 1 && checkcaixasaux t t1 = True
-  | x /= x1 = checkcaixasaux a t1
-  | otherwise = False
-  where
-    (p, (x, y)) : t = a
-    (p1, (x1, y1)) : t1 = b
+-- | Função Auxiliar Específica deste módulo
+--
+-- == Código
+-- @
+-- coordscaixas :: [(Peca, Coordenadas)] -> [Coordenadas] -- Dá as coordenadas das Caixas
+-- coordscaixas [] = []
+-- coordscaixas ((p, c) : t)
+--  | p == Caixa = c : coordscaixas t
+--  | otherwise = coordscaixas t
+-- @
+coordscaixas ::
+  -- | Recebe uma lista
+  [(Peca, Coordenadas)] ->
+  -- | Dá as coordenadas das Caixas
+  [Coordenadas]
+coordscaixas [] = []
+coordscaixas ((p, c) : t)
+  | p == Caixa = c : coordscaixas t
+  | otherwise = coordscaixas t
 
-{-
-mapabase :: [(Peca, Coordenadas)] -> Bool
-mapabase [] = False
-mapabase l = mapabaseaux [menorElemY l] (outroselementos l)
-             where outroselementos :: [(Peca,Coordenadas)] -> [(Peca, Coordenadas)]
-                   outroselementos [] = []
-                   outroselementos ((p,c):t) = if (p,c) == menorElemY ((p,c):t) then t else (p,c) : outroselementos t
-
-mapabaseaux :: [(Peca,Coordenadas)] -> [(Peca, Coordenadas)] -> Bool
-mapabaseaux (p,(x,y)) (p1,(x1,y1):t)                                        -- Atenção que o menor elementos pode não ser um Bloco (mas terá de ser um bloco obrigatoriamente)
-  | p1 == Bloco && x==x1 && (y1 == y+1 ||
-
--}
+-- | Função Auxiliar Específica deste módulo
+--
+-- == Código
+-- @
+-- coordsblocosecaixas :: [(Peca, Coordenadas)] -> [Coordenadas] -- Dá uma lista sem as caixas e sem a porta
+-- coordsblocosecaixas [] = []
+-- coordsblocosecaixas ((p, c) : t)
+--  | p == Porta = coordsblocosecaixas t
+--  | otherwise = c : coordsblocosecaixas t
+-- @
+coordsblocosecaixas ::
+  -- | Recebe uma lista
+  [(Peca, Coordenadas)] ->
+  [Coordenadas] -- Dá uma lista sem as caixas e sem a porta
+coordsblocosecaixas [] = []
+coordsblocosecaixas ((p, c) : t)
+  | p == Porta = coordsblocosecaixas t
+  | otherwise = c : coordsblocosecaixas t
