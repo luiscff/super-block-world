@@ -19,12 +19,13 @@ menorElemY ((p,(x,y)):t)
     |y >= snd(maiorCoordenada [head t]) = menorElemY t
     |otherwise = menorElemY ( [(p,(x,y))] ++ (tail t))
 
-maiorElemY :: [(Peca,Coordenadas)] -> (Peca,Coordenadas) --retorna um elemento com o maior Y
-maiorElemY [] = error "não existe maiorElemY de uma lista vazia"
-maiorElemY [x] = x
-maiorElemY ((p,(x,y)):t)
-    |y <= snd(maiorCoordenada [head t]) = maiorElemY t
-    |otherwise = maiorElemY ( [(p,(x,y))] ++ (tail t))
+menorElemX :: [(Peca,Coordenadas)] -> (Peca,Coordenadas) --retorna um elemento com o menor X
+menorElemX [] = error "não existe menorElemX de uma lista vazia"
+menorElemX [x] = x
+menorElemX ((p,(x,y)):t)
+    |x >= fst(maiorCoordenada [head t]) = menorElemX t
+    |otherwise = menorElemX ( [(p,(x,y))] ++ (tail t))
+
 
 removerElem _ [] = [] --remove um elemento de uma lista
 removerElem x (y:ys) 
