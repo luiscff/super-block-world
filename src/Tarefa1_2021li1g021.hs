@@ -146,6 +146,7 @@ checkcaixas ::
   [(Peca, Coordenadas)] ->
   -- | Se todas as caixas foram válidas retorna True
   Bool
+checkcaixas [] = False
 checkcaixas l
   | (c, d + 1) `elem` coordsblocosecaixas l = checkcaixasaux xs (coordsblocosecaixas l)
   | otherwise = False
