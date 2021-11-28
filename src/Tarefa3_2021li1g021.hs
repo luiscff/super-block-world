@@ -9,92 +9,104 @@ Módulo para a realização da Tarefa 3 do projeto de LI1 em 2021/22.
 module Tarefa3_2021li1g021 where
 
 import LI12122
-import Tarefa2_2021li1g021
 
 instance Show Jogo where
-  show (Jogo mapa jog) = mapshow mapa
+  show (Jogo mapa jog) = jogo mapa jog
 
-mapshow :: Mapa -> String
-mapshow [] = [] -- Falta ver o \n no final
-mapshow ([] : ys) = "\n" ++ mapshow ys
-mapshow ((x : xs) : ys) = case x of
-  Vazio -> " " ++ mapshow [xs] ++ mapshow ys
-  Bloco -> "X" ++ mapshow [xs] ++ mapshow ys
-  Caixa -> "C" ++ mapshow [xs] ++ mapshow ys
-  Porta -> "P" ++ mapshow [xs] ++ mapshow ys
+-- | Função: Tranforma dados do tipo Mapa em dados do Tipo Show
+-- == Código
+-- @
+-- jogo :: Mapa -> Jogador -> String
+-- jogo [] _ = ""
+-- jogo (x1:xs) (Jogador (x,y) d c)
+--  | y == 0 = colocarjogador x1 (Jogador (x,y) d c) ++ "\n" ++ mapshow xs
+--  | y > 0 = mapshow [x1] ++ jogo xs (Jogador (x,y-1) d c)
+--  | otherwise = ""
+-- @
+jogo ::
+  -- | Recebe um Mapa
+  Mapa ->
+  -- | Recebe um Jogador
+  Jogador ->
+  -- | Converte estes inputs em uma String
+  String
+jogo [] _ = ""
+jogo (x1 : xs) (Jogador (x, y) d c)
+  | y == 0 = colocarjogador x1 (Jogador (x, y) d c) ++ "\n" ++ mapshow xs
+  | y > 0 = mapshow [x1] ++ "\n" ++ jogo xs (Jogador (x, y -1) d c)
+  | otherwise = ""
 
+-- | Função: Coloca o Jogador na posição Correta
+-- == Código
+-- @
+-- colocarjogador :: [Peca] -> Jogador -> String
+-- colocarjogador [] _ = ""
+-- colocarjogador (z:zs) (Jogador (x,y) d c)
+--  | x == 0 = if d == Este then ">" ++ mapshowaux zs else "<" ++ mapshowaux zs
+--  | x > 0 = mapshowaux [z] ++ colocarjogador zs (Jogador (x-1,y) d c)
+--
+-- @
+colocarjogador ::
+  -- | Recebe uma Lsta de Peças
+  [Peca] ->
+  -- | Recebe um Jogador
+  Jogador ->
+  -- | Coloca o Jogador na Lista já no tipo String
+  String
+colocarjogador [] _ = ""
+colocarjogador (z : zs) (Jogador (x, y) d c)
+  | x == 0 = if d == Este then ">" ++ mapshowaux zs else "<" ++ mapshowaux zs
+  | x > 0 = mapshowaux [z] ++ colocarjogador zs (Jogador (x -1, y) d c)
 
+-- | Função: Converte dados Mapa em String
+-- == Código
+-- @
+-- mapshow :: Mapa -> String
+-- mapshow [] = []
+-- mapshow ([] : ys) = "\n" ++ mapshow ys
+-- mapshow ((x : xs) : ys) = case x of
+--  Vazio -> " " ++ mapshow [xs] ++ mapshow ys
+--  Bloco -> "X" ++ mapshow [xs] ++ mapshow ys
+--  Caixa -> "C" ++ mapshow [xs] ++ mapshow ys
+--  Porta -> "P" ++ mapshow [xs] ++ mapshow ys
+-- @
+mapshow ::
+  -- | Recebe um Mapa
+  Mapa ->
+  -- | Tranforma em uma String
+  String
+mapshow [] = []
+mapshow ([] : ys) = mapshow ys
+mapshow ((x : xs) : ys)
+  | x == Vazio && ys /= [] = " " ++ mapshow [xs] ++ "\n" ++ mapshow ys
+  | x == Bloco && ys /= [] = "X" ++ mapshow [xs] ++ "\n" ++ mapshow ys
+  | x == Caixa && ys /= [] = "C" ++ mapshow [xs] ++ "\n" ++ mapshow ys
+  | x == Porta && ys /= [] = "P" ++ mapshow [xs] ++ "\n" ++ mapshow ys
+  | x == Vazio && ys == [] = " " ++ mapshow [xs]
+  | x == Bloco && ys == [] = "X" ++ mapshow [xs]
+  | x == Caixa && ys == [] = "C" ++ mapshow [xs]
+  | x == Porta && ys == [] = "P" ++ mapshow [xs]
 
-
-
-
-
-
-
-
-
-
-
-
---colocarjogador (Jogador (x, y) d c) []
---colocarjogador (Jogador (x, y) d c) [x1] ++ xs
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{-
-mapshow :: Mapa -> String
-mapshow [] = [] -- Falta ver o \n no final
-mapshow ([] : ys) = "\n" ++ mapshow ys
-mapshow ((x : xs) : ys) = case x of
-  Vazio -> " " ++ mapshow [xs] ++ mapshow ys
-  Bloco -> "X" ++ mapshow [xs] ++ mapshow ys
-  Caixa -> "C" ++ mapshow [xs] ++ mapshow ys
-  Porta -> "P" ++ mapshow [xs] ++ mapshow ys
-
-encontrar :: Jogador -> String -> String            -- Colocar 1º o jogador e depois vazer o mapshow
-encontrar (Jogador (x, y) d c) [] = colocarjogador (Jogador (x, y) d c) []
-encontrar (Jogador (x, y) d c) (x1 : xs)
-  | y == 0 = colocarjogador (Jogador (x, y) d c) [x1] ++ xs
-  | y > 0 = x1 : encontrar (Jogador (x, y-1) d c) xs
-  | otherwise = []
-
-colocarjogador :: Jogador -> String -> String
-colocarjogador (Jogador (x, y) d c) [] = if d == Este then "<" else ">"
-colocarjogador (Jogador (x1, y) d c) (x : xs)
-  | x1 == 0 = if d == Este then "<" ++ xs else ">" ++ xs
-  | x1 > 0 = x : colocarjogador (Jogador (x1-1, y) d c) xs
-  | otherwise = []
-
-juntar :: Mapa -> Jogador -> String
-juntar l (Jogador (a,b) d c)
-  | x == y = x : juntaraux xs ys
-  | otherwise = y : juntaraux xs ys
- where
-   (x:xs) = mapshow l
-   (y:ys) = encontrar (Jogador (a,b) d c) (x:xs)
-
-juntaraux :: String -> String -> String
-juntaraux [] l = l
-juntaraux l [] = l
-juntaraux (x:xs) (y:ys)
-  | x == y = x : juntaraux xs ys
-  | otherwise = y : juntaraux xs ys
--}
+-- | Função Auxiliar: Converte uma Lista de Peças em String
+-- == Código
+-- @
+-- mapshowaux :: [Peca] -> String
+-- mapshowaux [] = []
+-- mapshowaux (x:xs)
+--  | x == Vazio = " " ++ mapshowaux xs
+--  | x == Bloco = "X" ++ mapshowaux xs
+--  | x == Caixa = "C" ++ mapshowaux xs
+--  | x == Porta = "P" ++ mapshowaux xs
+--
+-- @
+mapshowaux ::
+  -- | Recebe uma Lista de Peças
+  [Peca] ->
+  -- | Converte em uma String
+  String
+mapshowaux [] = []
+mapshowaux (x : xs)
+  | x == Vazio = " " ++ mapshowaux xs
+  | x == Bloco = "X" ++ mapshowaux xs
+  | x == Caixa = "C" ++ mapshowaux xs
+  | x == Porta = "P" ++ mapshowaux xs

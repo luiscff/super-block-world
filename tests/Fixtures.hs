@@ -52,7 +52,13 @@ m1e2 :: Jogo
 m1e2 = Jogo m1r (Jogador (2, 3) Oeste False)
 
 m2e1 :: Jogo
-m2e1 = Jogo m2r (Jogador (5,3) Oeste True)
+m2e1 = Jogo m2r (Jogador (6,0) Oeste True)
+
+m2e2 :: Jogo
+m2e2 = Jogo m2r (Jogador (2,3) Oeste True)
 
 m3e1 :: Jogo
 m3e1 = Jogo m3r (Jogador (5,3) Oeste True)
+
+m3e3 :: Jogo
+m3e3 = Jogo m3r (Jogador (5,3) Este False)
