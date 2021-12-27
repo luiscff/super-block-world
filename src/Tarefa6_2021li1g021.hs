@@ -9,4 +9,5 @@ module Tarefa6_2021li1gXXX where
 import LI12122
 
 resolveJogo :: Int -> Jogo -> Maybe [Movimento]
+resolveJogo 0 jogo = undefined --testar só se é possível acabar
 resolveJogo i jogo = undefined
