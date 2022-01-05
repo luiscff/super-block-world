@@ -53,13 +53,55 @@ maiorCoordenada l = maiorCoordenadaAUX l (0, 0)
 menorElemY ::
   -- | Recebe uma lista
   [(Peca, Coordenadas)] ->
-  -- | Retorna a Peça e a sua coordenda com o menor Y
+  -- | Retorna a Peça e a sua coordenada com o menor Y
   (Peca, Coordenadas)
 menorElemY [] = error "não existe menorElemY de uma lista vazia"
 menorElemY [x] = x
 menorElemY ((p, (x, y)) : t)
   | y >= snd (maiorCoordenada [head t]) = menorElemY t
   | otherwise = menorElemY ([(p, (x, y))] ++ (tail t))
+
+-- | Função: Retorna o maior X
+--
+-- == Código
+-- @
+--maiorX [] = error "não existe maiorX de uma lista vazia"
+--maiorX [x] = fst(snd(x))
+--maiorX ((p, (x, y)) : t)
+--  | x <= fst (maiorCoordenada [head t]) = maiorX t
+--  | otherwise = x
+-- @
+maiorX ::
+  -- | Recebe uma lista
+  [(Peca, Coordenadas)] ->
+  -- | Retorna o maior X
+  Int
+maiorX [] = error "não existe maiorX de uma lista vazia"
+maiorX [x] = fst(snd(x))
+maiorX ((p, (x, y)) : t)
+  | x <= fst (maiorCoordenada [head t]) = maiorX t
+  | otherwise = x
+
+-- | Função: Retorna o maior Y
+--
+-- == Código
+-- @
+--maiorY [] = error "não existe maiorY de uma lista vazia"
+--maiorY [x] = snd(snd(x))
+--maiorY ((p, (x, y)) : t)
+--  | y <= snd (maiorCoordenada [head t]) = maiorY t
+--  | otherwise = y
+-- @
+maiorY ::
+  -- | Recebe uma lista
+  [(Peca, Coordenadas)] ->
+  -- | Retorna o maior Y
+  Int
+maiorY [] = error "não existe maiorY de uma lista vazia"
+maiorY [x] = snd(snd(x))
+maiorY ((p, (x, y)) : t)
+  | y <= snd (maiorCoordenada [head t]) = maiorY t
+  | otherwise = y
 
 -- | Função: Retorna o elemento com o menor X
 --
@@ -75,7 +117,7 @@ menorElemY ((p, (x, y)) : t)
 menorElemX ::
   -- | Recebe uma lista
   [(Peca, Coordenadas)] ->
-  -- | Retorna a Peça e a sua coordenda com o menor X
+  -- | Retorna a Peça e a sua coordenada com o menor X
   (Peca, Coordenadas)
 menorElemX [] = error "não existe menorElemX de uma lista vazia"
 menorElemX [x] = x
