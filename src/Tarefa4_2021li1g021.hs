@@ -69,13 +69,16 @@ tiraCaixaMapa ((p,(x,y)):t) (x2,y2) l
     |otherwise = tiraCaixaMapa t (x2,y2) (l ++ [(p,(x,y))])
 {- | A função 'pousaCaixa' faz o jogador pousar a caixa que carrega, se for possível
 
-__quando não pode pousar a caixa__
+__quando não pode pousar a caixa poque não existe chão__
 
 @
     |dir == Este && (elem (Caixa,(x+1,y-1))(desconstroiMapa mapa) || elem (Bloco,(x+1,y-1))(desconstroiMapa mapa))  = Jogo mapa (Jogador (x,y) dir bool) 
     |dir == Oeste && (elem (Caixa,(x-1,y-1))(desconstroiMapa mapa) || elem (Bloco,(x-1,y-1))(desconstroiMapa mapa))  = Jogo mapa (Jogador (x,y) dir bool)
 @
-
+@
+    |dir == Este && x == (maiorX (desconstroiMapa mapa)) = Jogo mapa (Jogador (x,y) dir bool)
+    |dir == Oeste && x == 0 = Jogo mapa (Jogador (x,y) dir bool)
+@
 __quando empilha a caixa em cima de outra coisa__
 
 @
@@ -94,9 +97,11 @@ pousaCaixa :: Mapa -> Jogador -> Jogo
 pousaCaixa mapa (Jogador (x,y) dir bool)
     |dir == Este && (elem (Caixa,(x+1,y-1))(desconstroiMapa mapa) || elem (Bloco,(x+1,y-1))(desconstroiMapa mapa))  = Jogo mapa (Jogador (x,y) dir bool) 
     |dir == Oeste && (elem (Caixa,(x-1,y-1))(desconstroiMapa mapa) || elem (Bloco,(x-1,y-1))(desconstroiMapa mapa))  = Jogo mapa (Jogador (x,y) dir bool)
+    |dir == Este && x == (maiorX (desconstroiMapa mapa)) = Jogo mapa (Jogador (x,y) dir bool)
+    |dir == Oeste && x == 0 = Jogo mapa (Jogador (x,y) dir bool)
     |dir == Este && (elem (Caixa,(x+1,y))(desconstroiMapa mapa) || elem (Bloco,(x+1,y))(desconstroiMapa mapa)) && (elem (Porta,(x+1,y-1)) (desconstroiMapa mapa) == False) = Jogo (empilhaCaixaDir (desconstroiMapa mapa) (x,y)) (Jogador (x,y) dir False)
     |dir == Oeste && (elem (Caixa,(x-1,y))(desconstroiMapa mapa) || elem (Bloco,(x-1,y))(desconstroiMapa mapa)) && (elem (Porta,(x-1,y-1)) (desconstroiMapa mapa) == False) = Jogo (empilhaCaixaEsq (desconstroiMapa mapa) (x,y)) (Jogador (x,y) dir False)
-    |dir == Este && (elem (Caixa,(x+1,y+1))(desconstroiMapa mapa) == False) && (elem (Bloco,(x+1,y+1)) (desconstroiMapa mapa) == False) = Jogo (quedaCaixaDir (desconstroiMapa mapa) (x,y)) (Jogador (x,y) dir False) --quando a caixa cai
+    |dir == Este && (elem (Caixa,(x+1,y+1))(desconstroiMapa mapa) == False) && (elem (Bloco,(x+1,y+1)) (desconstroiMapa mapa) == False) = Jogo (quedaCaixaDir (desconstroiMapa mapa) (x,y)) (Jogador (x,y) dir False)
     |dir == Oeste && (elem (Caixa,(x-1,y+1))(desconstroiMapa mapa) == False) && (elem (Bloco,(x-1,y+1)) (desconstroiMapa mapa) == False) = Jogo (quedaCaixaEsq (desconstroiMapa mapa) (x,y)) (Jogador (x,y) dir False)
     |dir == Este && (elem (Porta,(x+1,y)) (desconstroiMapa mapa) == False) = Jogo (pousaDir (desconstroiMapa mapa) (x,y)) (Jogador (x,y) dir False)
     |dir == Oeste && (elem (Porta,(x-1,y)) (desconstroiMapa mapa) == False) = Jogo (pousaEsq (desconstroiMapa mapa) (x,y)) (Jogador (x,y) dir False)
