@@ -25,7 +25,7 @@ m1r =
     [Vazio, Vazio, Vazio, Vazio, Vazio, Vazio, Bloco],
     [Porta, Vazio, Vazio, Vazio, Caixa, Vazio, Bloco],
     [Bloco, Bloco, Bloco, Bloco, Bloco, Bloco, Bloco]
-  ]
+]
 
 m2r :: Mapa
 m2r =
@@ -34,7 +34,7 @@ m2r =
     [Vazio, Vazio, Vazio, Vazio, Vazio, Vazio, Bloco],
     [Porta, Vazio, Vazio, Vazio, Caixa, Vazio, Bloco],
     [Bloco, Bloco, Bloco, Bloco, Bloco, Bloco, Bloco]
-  ]
+]
 
 m3r :: Mapa
 m3r =
@@ -43,7 +43,7 @@ m3r =
     [Vazio, Vazio, Vazio, Vazio, Vazio, Vazio, Bloco],
     [Porta, Vazio, Vazio, Vazio, Caixa, Vazio, Bloco],
     [Bloco, Bloco, Bloco, Bloco, Bloco, Bloco, Bloco]
-  ]
+]
 
 m4r :: Mapa
 m4r =
@@ -77,6 +77,9 @@ m1e4 =  Jogo m1r (Jogador (5,3) Este False)
 
 m1e5 :: Jogo
 m1e5 = Jogo m1r (Jogador (1,3) Oeste True)
+
+m1e6 :: Jogo
+m1e6 = Jogo m1r (Jogador (0,3) Oeste False)
 
 m2e1 :: Jogo
 m2e1 = Jogo m2r (Jogador (6,0) Oeste True)
