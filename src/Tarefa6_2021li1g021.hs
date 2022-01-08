@@ -1,5 +1,5 @@
 {- |
-Module      : Tarefa6_2021li1gXXX
+Module      : Tarefa6_2021li1g021
 Description : Resolução de um puzzle
 
 Módulo para a realização da Tarefa 6 do projeto de LI1 em 2021/22.

@@ -97,7 +97,6 @@ pousaCaixa :: Mapa -> Jogador -> Jogo
 pousaCaixa mapa (Jogador (x,y) dir bool)
     |dir == Este && (elem (Caixa,(x+1,y-1))(desconstroiMapa mapa) || elem (Bloco,(x+1,y-1))(desconstroiMapa mapa))  = Jogo mapa (Jogador (x,y) dir bool) 
     |dir == Oeste && (elem (Caixa,(x-1,y-1))(desconstroiMapa mapa) || elem (Bloco,(x-1,y-1))(desconstroiMapa mapa))  = Jogo mapa (Jogador (x,y) dir bool)
-    |dir == Este && x == (maiorX (desconstroiMapa mapa)) = Jogo mapa (Jogador (x,y) dir bool)
     |dir == Oeste && x == 0 = Jogo mapa (Jogador (x,y) dir bool)
     |dir == Este && (elem (Caixa,(x+1,y))(desconstroiMapa mapa) || elem (Bloco,(x+1,y))(desconstroiMapa mapa)) && (elem (Porta,(x+1,y-1)) (desconstroiMapa mapa) == False) = Jogo (empilhaCaixaDir (desconstroiMapa mapa) (x,y)) (Jogador (x,y) dir False)
     |dir == Oeste && (elem (Caixa,(x-1,y))(desconstroiMapa mapa) || elem (Bloco,(x-1,y))(desconstroiMapa mapa)) && (elem (Porta,(x-1,y-1)) (desconstroiMapa mapa) == False) = Jogo (empilhaCaixaEsq (desconstroiMapa mapa) (x,y)) (Jogador (x,y) dir False)
