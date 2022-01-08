@@ -25,7 +25,7 @@ resolveJogo ::
     Jogo ->
     -- | Devolve uma possibilidade de movimentos 
     Maybe [Movimento]
-resolveJogo i jogo = let possivelmovimento = filter chegouporta (analisa i jogo) in if possivelmovimento == [] then Nothing else Just (criarmovimento (head (sortOn length possivelmovimento))) 
+resolveJogo i jogo = let possivelmovimento = filter porta (analisa i jogo) in if possivelmovimento == [] then Nothing else Just (movimento (head (sortOn length possivelmovimento))) 
 
 -- | Função : Recebe uma lista de Jogo e converte para uma lista de Movimento
 --
