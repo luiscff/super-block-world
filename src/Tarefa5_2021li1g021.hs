@@ -154,7 +154,7 @@ desenhaJogo e (Jogo mapa@(a:t) jogador) = (Translate x y (Pictures [desenhaMapa 
 
 -}
 desenhaJogo :: Estado -> Jogo -> Picture
-desenhaJogo e (Jogo mapa@(a:t) jogador) = (Translate x y (Pictures [desenhaMapa e (desconstroiMapa mapa), desenhaJogador e jogador]))
+desenhaJogo e (Jogo mapa@(a:t) jogador) = Scale 0.8 0.8 (Translate x y (Pictures [desenhaMapa e (desconstroiMapa mapa), desenhaJogador e jogador]))
               where
                 x = (fromIntegral((length a)*(-50)))/2.0
                 y = (fromIntegral((length mapa)*(50)))/2.0
