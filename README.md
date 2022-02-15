@@ -15,5 +15,6 @@ $ ghci -i="src" -i="tests" tests/Tests.hs
 
 ## Créditos
 
-Flávio David Rodrigues Sousa;
-Luís Carlos Fragoso Figueiredo;
+Luís Carlos Fragoso Figueiredo (eu)
+
+Flávio David Rodrigues Sousa (meu colega)
