@@ -1,13 +1,4 @@
-# Laboratórios de Informática I
-
-## Repositório
-
-O sistema de controlo de versões utilizado é o git. O repositório encontra-se disponível [nesta organização](https://gitlab.com/uminho-di/li1/2122). Para obter o repositório na sua máquina, garanta que tem a chave pública SSH adicionada na sua conta do GitLab com o email instituicional ([User Settings/SSH Keys](https://gitlab.com/-/profile/keys)), depois basta efetuar clone ao repositório.
-
-```bash
-$ git clone git@gitlab.com:uminho-di/li1/2122/2021li1g021.git
-$ cd 2021li1g021 
-```
+# Este repositório é um jogo que fiz com um colega para a universidade (Laboratórios de Informática I)  
 
 ## Testes
 
@@ -22,7 +13,7 @@ $ ghci -i="src" -i="tests" tests/Tests.hs
 >>> runAllTests -- Correr todos os testes
 ```
 
-## Grupo 21
+## Créditos
 
-- **A100715** Flávio David Rodrigues Sousa;
-- **A100549** Luís Carlos Fragoso Figueiredo;
+Flávio David Rodrigues Sousa;
+Luís Carlos Fragoso Figueiredo;
