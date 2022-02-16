@@ -1,7 +1,9 @@
 # Este repositório é um jogo que fiz com um colega para a universidade (Laboratórios de Informática I) com a linguagem Haskell
 
+
+Para jogar o jogo compile (recomendo o uso do ghc) a tarefa 5 do src e execute o ficheiro executável criado (./nome_do_ficheiro na terminal do Linux)
+
 ## Testes
-Para jogar o jogo compile a tarefa 5 do src e execute o ficheiro executável criado 
 
 O projeto contém testes unitários escritos usando a biblioteca [HUnit](https://hackage.haskell.org/package/HUnit). Os testes podem ser executados da seguinte forma.
 
