@@ -1,8 +1,9 @@
-# Este repositório é um jogo que fiz com um colega para a universidade (Laboratórios de Informática I)  
+# Este repositório é um jogo que fiz com um colega para a universidade (Laboratórios de Informática I) com a linguagem Haskell
 
 ## Testes
+Para jogar o jogo compile a tarefa 5 do src e execute o ficheiro executável criado 
 
-O projecto contém testes unitários escritos usando a biblioteca [HUnit](https://hackage.haskell.org/package/HUnit). Os testes podem ser executados da seguinte forma.
+O projeto contém testes unitários escritos usando a biblioteca [HUnit](https://hackage.haskell.org/package/HUnit). Os testes podem ser executados da seguinte forma.
 
 ```bash
 $ ghci -i="src" -i="tests" tests/Tests.hs
