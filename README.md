@@ -1,7 +1,18 @@
 # Este repositório é um jogo que fiz com um colega para a universidade (Laboratórios de Informática I) com a linguagem Haskell
 
 
-Para jogar o jogo compile (recomendo o uso do ghc) a tarefa 5 do src e execute o ficheiro executável criado (./nome_do_ficheiro na terminal do Linux)
+Para jogar o jogo compile a Tarefa 5 (src/Tarefa5_2021li1g021.hs) e execute o ficheiro executável criado (./nome_do_ficheiro na terminal do Linux)
+
+## Dependências
+
+-[GHC e Cabal](https://www.haskell.org/downloads/) <p/>
+-Gloss (libraria utilizada para a interface gráfica)
+
+```bash
+$ cabal update
+$ cabal install --lib gloss
+$ cabal install --lib gloss-juicy
+```
 
 ## Testes
 
